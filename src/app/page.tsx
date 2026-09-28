@@ -1,4 +1,4 @@
-import { Car, ClipboardList, Star, Users, Wrench, type LucideIcon } from "lucide-react";
+import { Camera, Car, ClipboardList, MapPin, Star, Users, Wrench, type LucideIcon } from "lucide-react";
 
 import { AudiencePanel, audiences } from "@/components/AudiencePanel";
 import { Waitlist } from "@/components/Waitlist";
@@ -11,9 +11,25 @@ const steps: [icon: LucideIcon, title: string, body: string][] = [
   [Star, "Rate your experience", "After the job, rate and review your mechanic to help build a trusted marketplace."],
 ];
 
+const requestFields: [icon: LucideIcon, name: string, purpose: string][] = [
+  [Car, "VIN", "Helps identify the exact vehicle."],
+  [MapPin, "Service address", "Allows mechanics to determine distance and service availability."],
+  [ClipboardList, "Problem description", "Lets the mechanic understand the customer's concern."],
+  [Camera, "Photos & videos", "Gives mechanics visual information before they arrive."],
+];
+
+const reputation = ["Ratings", "Reviews", "Completed jobs", "Professional profiles"];
+
 const services = ["Brakes", "Batteries", "Diagnostics", "Suspension", "Steering", "Starters",
   "Alternators", "Cooling systems", "Electrical", "AC / Heat", "Engine repair", "Transmission",
   "Maintenance", "& more"];
+
+const footerLinks: [label: string, href: string][] = [
+  ["For customers", "#owners"],
+  ["For mechanics", "#mechanics"],
+  ["About", "#how"],
+  ["Contact", "#waitlist"],
+];
 
 const wordmark = (
   <span className="flex items-center gap-2.5">
@@ -49,7 +65,11 @@ export default function HomePage() {
             now or want to schedule a mechanic for later, UNIQU3 is being built to make finding
             automotive help faster, easier, and more convenient.
           </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
+          <p className="mt-6 font-semibold text-brand-soft">
+            Join the waitlist and be notified when UNIQU3 launches.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a href="#waitlist" data-role="customer" className="rounded-control bg-brand px-6 py-3.5 font-semibold text-white hover:bg-brand-hi">
               Join the waitlist
             </a>
@@ -93,15 +113,97 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section id="requests" className="mx-auto w-full max-w-[1120px] px-5 py-16 lg:py-24">
+          <h2 className="text-center text-[clamp(1.95rem,4.6vw,3rem)]">
+            Give mechanics the information they need.
+          </h2>
+          <p className="mx-auto mt-4 max-w-[58ch] text-center text-ink-dim">
+            UNIQU3 is designed around getting important information to mechanics upfront.
+          </p>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {requestFields.map(([Icon, name, purpose]) => (
+              <div key={name} className="rounded-card border border-edge bg-surface/60 p-6">
+                <span className="tile grid size-11 place-items-center rounded-tile text-white">
+                  <Icon className="size-5.5" />
+                </span>
+                <h3 className="mt-4 text-[1.15rem]">{name}</h3>
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-dim">{purpose}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mx-auto mt-8 max-w-[58ch] text-center text-ink-dim">
+            More information upfront can mean less back-and-forth and faster quoting.
+          </p>
+        </section>
+
+        <section id="trust" className="mx-auto w-full max-w-[1120px] px-5 py-16 lg:py-24">
+          <h2 className="text-center text-[clamp(1.95rem,4.6vw,3rem)]">Ratings &amp; reviews.</h2>
+
+          <div className="mx-auto mt-8 max-w-[62ch] space-y-5 text-center text-[1.05rem] leading-relaxed text-ink-dim">
+            <p>Customers can rate their experience after a completed job.</p>
+            <p>Mechanics can build their reputation through:</p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-2.5">
+            {reputation.map((item) => (
+              <span
+                key={item}
+                className="flex items-center gap-2 rounded-full border border-edge bg-surface/60 px-5 py-2.5 text-[0.95rem] font-medium text-ink-dim"
+              >
+                <Star className="size-4 text-brand-hi" />
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <p className="mx-auto mt-10 max-w-[62ch] text-center text-[1.05rem] leading-relaxed text-ink-dim">
+            The goal is to create a marketplace where customers can make informed choices and
+            professional mechanics can build a reputation based on their work.
+          </p>
+        </section>
+
+        <section className="mx-auto w-full max-w-[1120px] px-5 py-16 lg:py-24">
+          <div className="rounded-panel border border-edge bg-surface/40 px-6 py-16 text-center sm:px-12">
+            <span className="rounded-full border border-brand/30 bg-brand/10 px-4 py-2 text-sm font-semibold text-brand-soft">
+              Mobile service, reimagined
+            </span>
+            <p className="mx-auto mt-8 max-w-[16ch] text-[clamp(2rem,6vw,3.75rem)] font-extrabold leading-[1.1] tracking-tight">
+              The mechanic <span className="text-gradient">comes to you.</span>
+            </p>
+            <p className="mx-auto mt-6 max-w-[58ch] text-[1.05rem] leading-relaxed text-ink-dim">
+              Traditional repair shops aren&apos;t the only way to get automotive work done. UNIQU3
+              is being built around a different model.
+            </p>
+          </div>
+        </section>
+
         <Waitlist />
       </main>
 
       <footer className="border-t border-white/5 py-12">
-        <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-6 px-5 sm:flex-row sm:items-center sm:justify-between">
-          {wordmark}
-          <p className="text-[0.85rem] text-ink-faint">
-            © {new Date().getFullYear()} UNIQU3. Professional automotive service, connected.
-          </p>
+        <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-8 px-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            {wordmark}
+            <p className="mt-3 text-ink-dim">Professional automotive service, connected.</p>
+            <span className="mt-3 inline-flex rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-[0.8rem] font-semibold text-brand-soft">
+              Coming soon
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-4 md:items-end">
+            <nav className="flex flex-wrap gap-x-6 gap-y-2 text-[0.95rem] font-medium">
+              {footerLinks.map(([label, href]) => (
+                <a key={href} href={href} className="text-ink-dim hover:text-brand-hi">
+                  {label}
+                </a>
+              ))}
+            </nav>
+            <p className="text-[0.85rem] text-ink-faint">
+              © {new Date().getFullYear()} UNIQU3. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </>

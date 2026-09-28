@@ -1,8 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
 
-const jakarta = { variable: "font-jakarta" };
+// Fetched at build time and served from our own origin — no runtime request to
+// Google, no layout shift. Consumed by --font-sans in globals.css.
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "UNIQU3 — Professional Auto Repair. Wherever You Are.",
